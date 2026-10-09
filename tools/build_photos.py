@@ -16,7 +16,7 @@ SRC, OUT = ROOT / "assets" / "src", ROOT / "assets"
 # (source, output, crop box (left, top, right, bottom) or None, output size)
 JOBS = [
     ("about.jpg", "about.webp", None, (900, 1200)),
-    ("avatar2.webp", "avatar.webp", (250, 170, 1030, 950), (256, 256)),
+    ("avatar2.webp", "avatar.webp", (150, 90, 1130, 1070), (256, 256)),
 ]
 
 
