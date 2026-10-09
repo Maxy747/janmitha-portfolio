@@ -32,7 +32,15 @@ Crop boxes are at the top of the script if a new photo needs reframing.
 
 The hero scrubs through 10 illustrated frames in `assets/turn/` (`000.webp … 009.webp`) as the cursor moves, or as you swipe on a phone. `frames.json` holds the count, the straight-on frame (`front`: 5) and each frame's head angle (`positions`, -1 left … +1 right). `front.webp` is shown before the script loads.
 
-The frames come from a 33-frame Codex set (2026-10-09, navy saree), converted from 1033×1523 PNG to 760 px WebP. Only 10 were kept (`source_frames` in `frames.json` lists the original numbers). The rest were dropped because 14 of them repeated the same strong left turn with slightly different faces, several front and right views were near-duplicates (24–28 are all about the same angle), and the last frame (32) has a different, longer face. The `positions` come from measuring how far each frame's face has moved from the front frame toward the far-left/far-right one, not from even spacing. To swap in a new set:
+The frames come from a 33-frame Codex set (2026-10-09, navy saree), converted from 1033×1523 PNG to 760 px WebP. Only 10 were kept (`source_frames` in `frames.json` lists the original numbers). The rest were dropped because 14 of them repeated the same strong left turn with slightly different faces, several front and right views were near-duplicates (24–28 are all about the same angle), and the last frame (32) has a different, longer face. The `positions` come from measuring how far each frame's face has moved from the front frame toward the far-left/far-right one, not from even spacing.
+
+The frames are transparent cutouts, so the giant name shows behind her. `tools/cutout_frames.py` keys out the plain studio backdrop by colour; there's no ML model, just numpy and Pillow. It also clears the light glow the generator drew around her hair, which otherwise shows as a white halo over the dark name. It reads the frames listed in `frames.json` (`source_frames`) from the Codex folder:
+
+```bash
+python tools/cutout_frames.py "C:\Users\MoeLustHer\Documents\Codex\2026-10-09\use-this-existing-interactive-portrait-c-2\outputs\janmitha-portfolio\assets\navy-turn" --preview check.png
+```
+
+To swap in a completely new set:
 
 ```bash
 pip install "rembg[cpu]" pillow
