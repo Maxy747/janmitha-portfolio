@@ -10,8 +10,9 @@ saree in colour. So no ML model is needed:
      (eye whites, silver stripes, earrings) are never punched out.
   4. Pull the leftover blue tint out of semi-transparent edge pixels (decontamination).
 
-Reads the frames listed in assets/turn/frames.json ("source_frames") from the Codex folder and
-writes assets/turn/000.webp ... plus front.webp, with transparency.
+Reads the frames listed in assets/turn/frames.json ("source_frames": a number is a frame from the
+Codex folder, a file name is an extra frame in assets/src/turn-extra/) and writes
+assets/turn/000.webp ... plus front.webp, with transparency.
 
 Usage (from the repo root):
     python tools/cutout_frames.py "C:\\path\\to\\navy-turn"
@@ -28,6 +29,7 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parent.parent
 TURN = ROOT / "assets" / "turn"
+EXTRA = ROOT / "assets" / "src" / "turn-extra"
 WIDTH = 760
 
 # colour distance (0-255 RGB space) below LO is pure background, above HI is pure subject
@@ -129,12 +131,14 @@ def main() -> None:
     meta = json.loads((TURN / "frames.json").read_text(encoding="utf-8"))
     frames = []
     for n, i in enumerate(meta["source_frames"]):
-        im = cutout(Image.open(args.source / f"{i:03d}.png"))
+        # a number is a frame of the original Codex set; a name is an extra frame kept in assets/src/turn-extra/
+        path = args.source / f"{i:03d}.png" if isinstance(i, int) else EXTRA / i
+        im = cutout(Image.open(path))
         im.save(TURN / f"{n:03d}.webp", "WEBP", quality=84, alpha_quality=90, method=6)
         if n == meta["front"]:
             im.save(TURN / "front.webp", "WEBP", quality=84, alpha_quality=90, method=6)
         frames.append(im)
-        print(f"{n:03d}.webp  <- codex {i:02d}  {(TURN / f'{n:03d}.webp').stat().st_size // 1024} KB")
+        print(f"{n:03d}.webp  <- {path.name}  {(TURN / f'{n:03d}.webp').stat().st_size // 1024} KB")
 
     if args.preview:
         tw = 260; th = round(frames[0].height * tw / frames[0].width)
