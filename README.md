@@ -30,9 +30,9 @@ Crop boxes are at the top of the script if a new photo needs reframing.
 
 ## Head turn
 
-The hero scrubs through 33 illustrated frames in `assets/turn/` (`000.webp … 032.webp`) as the cursor moves, or as you swipe on a phone. `frames.json` holds the count, the straight-on frame (`front`: 20) and each frame's head angle (`positions`, -1 left … +1 right). `front.webp` is shown before the script loads.
+The hero scrubs through 11 illustrated frames in `assets/turn/` (`000.webp … 010.webp`) as the cursor moves, or as you swipe on a phone. `frames.json` holds the count, the straight-on frame (`front`: 5) and each frame's head angle (`positions`, -1 left … +1 right). `front.webp` is shown before the script loads.
 
-The frames were generated in Codex (2026-10-09, navy saree set) as 1033×1523 PNGs and converted to 760 px WebP at quality 82, 2.1 MB for all 33. To swap in a new set:
+The frames come from a 33-frame Codex set (2026-10-09, navy saree), converted from 1033×1523 PNG to 760 px WebP. Only 11 were kept (`source_frames` in `frames.json` lists the original numbers). The rest were dropped because 14 of them repeated the same strong left turn with slightly different faces, and a few front views were near-duplicates, which made her flicker instead of turning. To swap in a new set:
 
 ```bash
 pip install "rembg[cpu]" pillow
