@@ -1,7 +1,7 @@
 """Crop and compress Janmitha's photos from assets/src/ into the web assets the page uses.
 
     assets/about.webp    "Say hi" photo (photo 2)
-    assets/avatar.webp   small circle: buddy, contact card, favicon (photo 3)
+    assets/avatar.webp   small circle: buddy, contact card, favicon (red kurta, carved door)
 
 Usage (from the repo root):  python tools/build_photos.py
 Needs Pillow:  pip install pillow
@@ -16,7 +16,7 @@ SRC, OUT = ROOT / "assets" / "src", ROOT / "assets"
 # (source, output, crop box (left, top, right, bottom) or None, output size)
 JOBS = [
     ("about.jpg", "about.webp", None, (900, 1200)),
-    ("avatar.jpg", "avatar.webp", (347, 355, 687, 695), (256, 256)),
+    ("avatar2.webp", "avatar.webp", (250, 170, 1030, 950), (256, 256)),
 ]
 
 
