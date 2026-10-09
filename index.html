@@ -387,6 +387,15 @@ footer { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wr
   .hat { grid-template-columns: 1fr; border-radius: 28px; }
   .hat__list li { grid-template-columns: 1fr; gap: 2px; }
   .stats__list { grid-template-columns: 1fr; }
+  /* project tables: fit the card and wrap instead of scrolling sideways */
+  .case { gap: 18px; padding: 14px; border-radius: 24px; }
+  .case__body { padding: 6px 4px 0; }
+  .screen { font-size: 11.5px; border-radius: 16px; }
+  .screen__bar { padding: 10px 12px; }
+  .screen table { min-width: 0; table-layout: auto; }
+  .screen th, .screen td { white-space: normal; padding: 7px 8px; vertical-align: middle; }
+  .screen th:first-child, .screen td:first-child { padding-left: 12px; }
+  .screen .sev { display: inline-block; white-space: nowrap; }
   .hero { min-height: 0; display: flex; flex-direction: column; align-items: center; padding-top: 112px; gap: 0; }
   .hero__tag { top: 70px; font-size: 11px; }
   .hero__name { position: relative; top: auto; font-size: 19vw; }
