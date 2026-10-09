@@ -71,7 +71,7 @@ main, .bar, footer { position: relative; z-index: 1; }
   font-weight: 800; font-size: clamp(56px, 18vw, 300px); line-height: .8; letter-spacing: -.035em;
   font-variation-settings: "wght" 800, "wdth" 75; white-space: nowrap; user-select: none;
 }
-.portrait-stage { position: absolute; left: 50%; bottom: 0; translate: -50% 0; width: clamp(300px, min(40vw, calc((100vh - 225px) / 1.26)), 540px); max-width: 100%; z-index: 2; perspective: 900px; touch-action: pan-y; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+.portrait-stage { position: absolute; left: 50%; bottom: 0; translate: -50% 0; width: clamp(300px, min(40vw, calc((100vh - 225px) / 1.475)), 540px); max-width: 100%; z-index: 2; perspective: 900px; touch-action: pan-y; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
 .portrait {
   display: block; width: 100%; height: auto; border-radius: 48% 48% 0 0; transform-origin: 50% 100%;
   -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent 98%); mask-image: linear-gradient(to bottom, #000 70%, transparent 98%);
@@ -420,7 +420,7 @@ footer { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wr
     <h1 class="hero__name">Janmitha</h1>
     <span class="hero__tag"><i></i>Software · Security · Data</span>
     <div class="portrait-stage" id="portrait-stage">
-      <img class="portrait" id="portrait" src="assets/hero.webp" alt="Janmitha in a navy striped saree under a red pergola" width="576" height="725">
+      <img class="portrait" id="portrait" src="assets/turn/front.webp" alt="Illustrated portrait of Janmitha in a navy saree with silver stripes" width="760" height="1121">
     </div>
     <p class="hero__intro">Computer Science engineer from Mangaluru. <b>I build software, look for the holes in it and make sense of the data it produces.</b> Glad you stopped by 💙</p>
     <a class="hero__cue" href="#services">Scroll to see what I do <span aria-hidden="true">↓</span></a>
@@ -825,8 +825,7 @@ footer { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wr
 
 <script>
 (() => {
-  // Head-turn frames: none yet, so the hero photo leans toward the cursor instead.
-  // To add a turn, run tools/build_frames.py; it writes assets/turn/000.webp ... and frames.json, which is read below.
+  // Head-turn frames live in assets/turn/ (000.webp …); count, front frame and per-frame angles come from assets/turn/frames.json.
   const TURN = { count: 0, front: 0, src: i => `assets/turn/${String(i).padStart(3, '0')}.webp` };
   const root = document.documentElement;
   // Native scrolling; in-page jumps glide via the browser's own smooth scroll.
@@ -1082,7 +1081,7 @@ footer { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wr
       if (t !== aboutPic.style.transform) aboutPic.style.transform = t;
     });
 
-    // portrait: subtle 3D lean toward the cursor (used until head-turn frames exist)
+    // portrait: subtle 3D lean toward the cursor (fallback if the head-turn frames are missing)
     if (!TURN.count) {
       const pic = document.getElementById('portrait'); let rx = 0, ry = 0;
       loopFns.push(() => {

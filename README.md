@@ -18,7 +18,6 @@ Originals live in `assets/src/` (git-ignored). `tools/build_photos.py` crops and
 
 | File | Used for |
 |---|---|
-| `assets/hero.webp` | arched hero portrait |
 | `assets/about.webp` | "Say hi" photo |
 | `assets/avatar.webp` | buddy, contact card, favicon |
 
@@ -29,16 +28,18 @@ python tools/build_photos.py
 
 Crop boxes are at the top of the script if a new photo needs reframing.
 
-## Adding a head turn (optional)
+## Head turn
 
-Right now the hero photo just leans toward the cursor. To get Shiza-style head turning, generate an ordered set of illustrated portraits (15–30 frames, left → right) and run:
+The hero scrubs through 33 illustrated frames in `assets/turn/` (`000.webp … 032.webp`) as the cursor moves, or as you swipe on a phone. `frames.json` holds the count, the straight-on frame (`front`: 20) and each frame's head angle (`positions`, -1 left … +1 right). `front.webp` is shown before the script loads.
+
+The frames were generated in Codex (2026-10-09, navy saree set) as 1033×1523 PNGs and converted to 760 px WebP at quality 82, 2.1 MB for all 33. To swap in a new set:
 
 ```bash
 pip install "rembg[cpu]" pillow
 python tools/build_frames.py "C:\path\to\frames"
 ```
 
-That writes `assets/turn/000.webp …` and `assets/turn/frames.json`, which the page picks up automatically. Point the `<img id="portrait">` `src` at `assets/turn/front.webp` and set its `width`/`height` to the frame size.
+If the new frames have a different aspect ratio, update the `<img id="portrait">` `width`/`height` and the `/ 1.475` ratio in `.portrait-stage`.
 
 ## Contact form
 
