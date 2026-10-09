@@ -1255,12 +1255,16 @@ footer { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wr
   });
 
   // hero parallax: the giant name drifts up slower than the page, the intro fades out
+  // (desktop only: the intro stays put for the first 20% of a screen, then fades over the next 70%;
+  // on phones it sits below the portrait in normal flow, so it never fades while you scroll to read it)
   const heroName = document.querySelector('.hero__name'), heroIntro = document.querySelector('.hero__intro'), heroCue = document.querySelector('.hero__cue');
+  const stacked = matchMedia('(max-width: 760px)');
   let lastHY = -1;
+  stacked.addEventListener('change', () => { lastHY = -1; });
   loopFns.push(() => {
     const y = scrollY; if (y > innerHeight * 1.2 || Math.abs(y - lastHY) < .5) return; lastHY = y;
     heroName.style.translate = `0 ${(y * .35).toFixed(1)}px`;
-    const fade = clamp(1 - y / (innerHeight * .45), 0, 1).toFixed(3);
+    const fade = stacked.matches ? '1' : clamp(1 - (y - innerHeight * .2) / (innerHeight * .7), 0, 1).toFixed(3);
     heroIntro.style.opacity = fade; heroCue.style.opacity = fade;
   });
 
